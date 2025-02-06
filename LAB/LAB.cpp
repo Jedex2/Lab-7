@@ -5,6 +5,7 @@
 
 using namespace cv;
 using namespace std;
+//www
 
 int threshold_value = 45;
 int threshold_type = 3;
