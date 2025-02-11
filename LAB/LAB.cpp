@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     if (!cap.isOpened()) // check if video is loaded
         return -1;
 
-    pMOG2 = createBackgroundSubtractorMOG2(); // MOG2 with adjusted parameters
+    pMOG2 = createBackgroundSubtractorMOG2(500, 16, false); // MOG2 with adjusted parameters
 
     Mat acc; // Accumulator for running average
 
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
         imshow("Frame", frame);
 
         cvtColor(frame, grayscale, COLOR_BGR2GRAY);
-        GaussianBlur(grayscale, blurred, Size(5, 5), 0);
+        GaussianBlur(grayscale, blurred, Size(7, 7), 0);
 
         if (acc.empty()) {
             blurred.convertTo(acc, CV_32FC1); // Initialize accumulator
@@ -49,20 +49,20 @@ int main(int argc, char** argv)
         float alpha = 0.1;
         accumulateWeighted(blurred, acc, alpha);
         convertScaleAbs(acc, background);
-        imshow("Background", background);
+        /*imshow("Background", background);*/
 
         // Background subtraction
         absdiff(background, grayscale, object);
-        imshow("Object (Foreground)", object);
+        /*imshow("Object (Foreground)", object);*/
 
         // Apply background subtractor (MOG2)
         pMOG2->apply(blurred, fgMaskMOG2);
 
         // Thresholding
-        threshold(fgMaskMOG2, fgMaskMOG2, 150, 255, THRESH_BINARY);
+        threshold(fgMaskMOG2, fgMaskMOG2, 10, 255, THRESH_BINARY);
 
         // Morphological filtering to remove noise
-        Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+        Mat kernel = getStructuringElement(MORPH_RECT, Size(5, 5));
         morphologyEx(fgMaskMOG2, fgMaskMOG2, MORPH_OPEN, kernel);
         morphologyEx(fgMaskMOG2, fgMaskMOG2, MORPH_CLOSE, kernel);
         imshow("FG Mask MOG 2", fgMaskMOG2);
@@ -74,14 +74,14 @@ int main(int argc, char** argv)
 
         // Draw bounding boxes
         for (size_t i = 0; i < contours.size(); i++) {
-            if (contourArea(contours[i]) > 40) { // Filter small objects
+            if (contourArea(contours[i]) > 200 && contourArea(contours[i]) < 4050) { // Filter small objects
                 Rect boundingBox = boundingRect(contours[i]);
                 rectangle(frame, boundingBox, Scalar(0, 255, 0), 2);
             }
         }
 
         // Draw contours
-        drawContours(frame, contours, -1, Scalar(255, 0, 0), 2);
+        /*drawContours(frame, contours, -1, Scalar(255, 0, 0), 2);*/
 
         imshow("Contours", frame);
         if (waitKey(30) >= 0) break;
