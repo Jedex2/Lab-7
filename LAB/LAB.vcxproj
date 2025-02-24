@@ -81,12 +81,12 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\opencv\build\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\build\include\opencv2;C:\opencv\build\include;C:\vcpkg\installed\x64-windows\include;C:\vcpkg\installed\x64-windows\include\leptonica;C:\vcpkg\installed\x64-windows\include\tesseract</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opencv_world4100d.lib</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world4100d.lib;tesseract55.lib;leptonica-1.85.0.lib;archive.lib;bz2.lib;charset.lib;gif.lib;iconv.lib;jpeg.lib;libcrypto.lib;libpng16.lib;libssl.lib;libwebpmux.lib;libxml2.lib;lz4.lib;lzma.lib;openjp2.lib;tiff.lib;turbojpeg.lib;zlib.lib;zstd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\opencv\build\x64\vc16\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\opencv\build\x64\vc16\lib;C:\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

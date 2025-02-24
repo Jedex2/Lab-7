@@ -1,12 +1,10 @@
 #include "pch.h"
 #include "opencv2/opencv.hpp"
-
 #include "opencv2/objdetect.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/video/tracking.hpp"
 #include <iostream>
-
 
 using namespace cv;
 using namespace std;
@@ -102,8 +100,8 @@ void add_people(NPlate blob)
 }
 
 int main(int argc, char** argv)
-{   
-    string videoPath = "C:\\Users\\User\\Downloads\\lpr1.mp4";
+{
+    string videoPath = "C:\\Users\\User\\source\\repos\\Lab-8\\x64\\Debug\\lpr1.mp4";
     VideoCapture cap(videoPath);
     if (!cap.isOpened())
         return -1;
